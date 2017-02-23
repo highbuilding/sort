@@ -1,9 +1,7 @@
-import java.util.Comparator;
-
 /**
  * Created by where1993 on 2017/2/23.
  */
-public class Sort {
+public class Shell {
     private static boolean less(Comparable v,Comparable w){
         return v.compareTo(w)<0;
     }
@@ -21,5 +19,24 @@ public class Sort {
             if(less(a[i],a[i-1])) return false;
         }
         return true;
+    }
+    public static void sort(Comparable[] a){
+        int N=a.length;
+        int h=1;
+        while(h<N/3) h=3*h+1;
+        while(h>=1) {
+            for (int i = h; i < N; i++) {
+                for (int j = i; j > 0 && less(a[j], a[j - h]); j-=h) {
+                    exch(a, j, j - 1);
+                }
+            }
+            h=h/3;
+        }
+    }
+    public static void main(String[] args){
+        String[] a={"a","b","d","e","g","w","x","t","c"};
+        sort(a);
+        assert isSorted(a);
+        show(a);
     }
 }
