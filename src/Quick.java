@@ -31,19 +31,26 @@ public class Quick {
         sort(a,j+1,hi);
     }
     private static int partition(Comparable[] a,int lo,int hi){
-       int i=lo,j=hi+1;
+       int i=lo,j=hi;
         Comparable v=a[lo];
-        while(true){
-            while(less(a[++i],v)&&i<=hi);
-            while(less(v,a[--j])&&j>=lo);
-            if(i>=j) break;
-            exch(a,i,j);
+        while(i<j){
+           while(i<j&&less(v,a[j])){
+               j--;
+           }
+            if(i<j)
+              a[i++]=a[j];
+            while(i<j&&less(a[i],v)){
+               i++;
+            }
+            if(i<j)
+              a[j--]=a[i];
+
         }
-        exch(a,lo,j);
+        a[j]=v;
         return j;
     }
     public static void main(String[] args){
-        Integer[] a={7,6,8,4,10};
+        Integer[] a={2,3,1,12,13,10,7,6,8,4};
         sort(a);
         assert isSorted(a);
         show(a);
